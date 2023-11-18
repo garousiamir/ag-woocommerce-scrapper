@@ -13,10 +13,4 @@
 require 'classes-loader.php';
 
 //load from composer
- require 'vendor/autoload.php';
-
-
-
-// $dom = new PHPHtmlParser\Dom;
-// $dom->loadFromUrl('https://www.trendyol.com/bershka/fitilli-kisa-kollu-t-shirt-p-382836459?boutiqueId=618519&merchantId=104961');
-// echo $dom->find('h1.pr-new-br')[0]->innerHtml;
+require 'vendor/autoload.php';
