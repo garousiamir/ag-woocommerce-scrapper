@@ -70,21 +70,64 @@ class agOptions {
                   ),
         );
     }
+
     private function get_section_two_fields() {
+        global $wpdb;
+        // Get product categories using $wpdb
+        $product_categories = $wpdb->get_results("
+            SELECT t.term_id, t.name, t.slug
+            FROM {$wpdb->prefix}terms AS t
+            INNER JOIN {$wpdb->prefix}term_taxonomy AS tt ON t.term_id = tt.term_id
+            WHERE tt.taxonomy = 'product_cat'
+        ");
+        $catsarray = array();
+        $i = 0;
+        foreach ( $product_categories as $category) {
+            $catsarray[] = array(
+                'id'    => 'cargo_price_' . $i,
+                'type'  => 'number',
+                'title' => 'هزینه کارگو و حمل - ' . $category->name,
+            );
+            $i++;
+        }
+        
         return array(
+            // A Notice
+            array(
+                'type'    => 'notice',
+                'style'   => 'success',
+                'content' => 'تمام نرخ ها به تومان وارد شود',
+            ),
             array(
                 'id'    => 'office_price',
                 'type'  => 'number',
                 'title' => 'هزینه دفتر',
-                'dependency' => array( 'auto_update_products', '==', '1' ),
               ),
               array(
                 'id'    => 'cargo_price',
                 'type'  => 'number',
                 'title' => 'هزینه کارگو و حمل',
-                'dependency' => array( 'auto_update_products', '==', '1' ),
               ),
+              array(
+                'id'    => 'lira_price',
+                'type'  => 'number',
+                'title' => 'نرخ لیر',
+              ),
+              array(
+                'id'    => 'comission_price',
+                'type'  => 'number',
+                'title' => 'کارمزد',
+              ),
+
+              array(
+                'id'    => 'times_factor',
+                'type'  => 'number',
+                'title' => 'ضریب هزینه های غیر قابل پیش بینی',
+            ),
+            ...$catsarray,
+             
         );
+
     }
 
 
