@@ -8,15 +8,10 @@
     Author: Amirhossein Garousi
     Author URI: https://agarousi.ir
 */
-
-
 if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
-
 
 //load from composer
 require __DIR__ . '/vendor/autoload.php';
-
-
 
 //load the options framework
 require 'includes/codestar-framework/codestar-framework.php';
@@ -33,15 +28,8 @@ spl_autoload_register( function($classname) {
 } );
 
 /**
- * Initialize the batches.
+ * Initialize the classes.
  */
-function wp_batch_processing_init() {
-    $batch = new agBatch();
-    WP_Batch_Processor::get_instance()->register( $batch );
-}
-
-
-//initializing Classes
 if(is_admin()){
     $agOptions = new agOptions('ag_frame');
     $agGeneral = new agGeneral();
@@ -49,4 +37,11 @@ if(is_admin()){
     add_action( 'wp_batch_processing_init', 'wp_batch_processing_init', 15, 1 );
 }
 
+/**
+ * Initialize the batches.
+ */
+function wp_batch_processing_init() {
+    $batch = new agBatch();
+    WP_Batch_Processor::get_instance()->register( $batch );
+}
 

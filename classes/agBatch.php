@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
+
 /**
  * Class MY_Example_Batch
  */
@@ -25,7 +27,6 @@ class agBatch extends WP_Batch {
      */
     public function setup() {
 
-        $datas = [];
         $options = get_option( 'ag_scrap' );
         if(!empty($options['product_opt_repeater'])):
             $reps = $options['product_opt_repeater'];
@@ -33,7 +34,7 @@ class agBatch extends WP_Batch {
                 $pr_link = $rep['product_rep_link'];
                 $pr_update = $rep['product_rep_update'];
                 $pr_cargo = $rep['product_rep_cargo'];
-                $this->push(new WP_Batch_Item($datas, array(
+                $this->push(new WP_Batch_Item($pr_link, array(
 					'pr_link' => $pr_link,
 					'pr_update' => $pr_update,
 					'pr_cargo' => $pr_cargo,
@@ -57,16 +58,23 @@ class agBatch extends WP_Batch {
      */
     public function process( $item ) {
 
-        if(!empty($datas)){
-            $datas = array(
-                'pr_link'=> $item->get_value('pr_link'),
-                'pr_update'=> $item->get_value('pr_update'),
-                'pr_cargo'=> $item->get_value('pr_cargo'),
-            );
+        $datas = array(
+            'pr_link'  => $item->get_value('pr_link'),
+            'pr_update'=> $item->get_value('pr_update'),
+            'pr_cargo' => $item->get_value('pr_cargo'),
+        );
+
+        $url = $datas['pr_link'];
+        $url = strval($url);
+        $title = agFetch::ag_get_title_from_url($url);
+        $title = strip_tags($title);
+
+        if(!empty($title)){
+            agcProduct::ag_create_variable_product($title);
         }
-        
-        agcProduct::ag_create_simple_product();
-        
+        else{
+            return new WP_Error( 302, "title does not exist" );
+        }
 
         // Return true if the item processing is successful.
         return true;

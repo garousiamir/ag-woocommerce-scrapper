@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
 
 class agcProduct{
 
@@ -6,10 +7,10 @@ class agcProduct{
 
     }
    
-    public static function ag_create_variable_product() {
+    public static function ag_create_variable_product($title) {
   
         $product = new WC_Product_Variable();
-        $product->set_name( 's' );
+        $product->set_name($title);
         $product->set_status( 'publish' ); 
         $product->set_catalog_visibility( 'visible' );
         $product->set_image_id( $image_id );
@@ -40,10 +41,10 @@ class agcProduct{
      
     }
 
-    public static function ag_create_simple_product() {
+    public static function ag_create_simple_product($title) {
 
         $product = new WC_Product(); // Create a new WC_Product instance
-        $product->set_name('Sample Product'); // Product name
+        $product->set_name($title); // Product name
         $product->set_status('publish'); // Product status (publish, draft, etc.)
         $product->set_catalog_visibility('visible'); // Product visibility on the catalog (visible, hidden, etc.)
         $product->set_description('This is a sample product description.'); // Product description
@@ -53,7 +54,7 @@ class agcProduct{
         $product->set_stock_quantity(10); // Stock quantity
         $product->set_stock_status('instock'); // Stock status (instock, outofstock)
         $product->set_backorders('no'); // Allow backorders (yes, no, notify)
-        $product->set_sku('SAMPLESKU001'); // Product SKU
+        // $product->set_sku('SAMPLESKU001'); // Product SKU
 
         // $product->set_category_ids(array(12)); // Array of category IDs
         // $product->set_tag_ids(array(34)); // Array of tag IDs
