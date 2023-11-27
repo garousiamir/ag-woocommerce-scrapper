@@ -84,9 +84,9 @@ class WP_BP_List_Table extends \WP_List_Table {
 	 */
 	function get_columns() {
 		$columns = array(
-			'title'           => __( 'Title', 'wp-batch-processing' ),
-			'total_processed' => __( 'Total Processed', 'wp-batch-processing' ),
-			'total_items'     => __( 'Total Items', 'wp-batch-processing' ),
+			'title'           => __( 'عنوان', 'wp-batch-processing' ),
+			'total_processed' => __( 'انجام شده ها', 'wp-batch-processing' ),
+			'total_items'     => __( 'تعداد کل', 'wp-batch-processing' ),
 		);
 
 		return $columns;

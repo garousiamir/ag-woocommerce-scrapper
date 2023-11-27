@@ -74,9 +74,9 @@ class WP_Batch_Processor_Admin {
 			'delay'    => apply_filters( 'wp_batch_processing_delay', 0 ),
 			// Set delay in seconds before processing the next item. Default 0. No delay.
 			'text'     => array(
-				'processing' => __( 'Processing...', 'wp-batch-processing' ),
-				'start'      => __( 'Start', 'wp-batch-processing' ),
-				'confirm_restart' => __('Are you sure you want to restart? This action can not be reverted.', 'wp-batch-processing')
+				'processing' => __( 'در حال اجرا...', 'wp-batch-processing' ),
+				'start'      => __( 'شروع', 'wp-batch-processing' ),
+				'confirm_restart' => __('مطمئن هستید میخواید ریستارت کنید؟', 'wp-batch-processing')
 			)
 		) );
 	}

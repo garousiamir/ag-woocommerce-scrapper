@@ -19,8 +19,8 @@ $processed_count = $batch->get_processed_count();
 
         <div class="batch-process-main">
             <ul class="batch-process-stats">
-                <li><strong>Total:</strong> <span id="batch-process-total"><?php echo (int) $items_count; ?></span></li>
-                <li><strong>Processed:</strong> <span
+                <li><strong>تعداد کل:</strong> <span id="batch-process-total"><?php echo (int) $items_count; ?></span></li>
+                <li><strong>انجام شده ها:</strong> <span
                             id="batch-process-processed"><?php echo (int) $processed_count; ?></span> <span
                             id="batch-process-percentage">(<?php echo $percentage; ?>%)</span></li>
             </ul>
@@ -32,18 +32,18 @@ $processed_count = $batch->get_processed_count();
             </div>
             <div class="batch-process-current-item">
                 <?php if($batch->is_finished()): ?>
-                <span class="batch-message-text--green"><?php _e('Process finished!'); ?></span>
+                <span class="batch-message-text--green"><?php _e('با موفقیت انجام شد'); ?></span>
                 <?php endif; ?>
             </div>
         </div>
 
         <div class="batch-process-actions">
 			<?php if ( ! $batch->is_finished() ): ?>
-                <button class="button button-primary" id="batch-process-start"><?php $processed_count > 0 && $processed_count < $items_count ? _e('Continue') : _e('Start'); ?></button>
-                <button class="button" id="batch-process-restart">Restart</button>
-                <button class="button batch-process--button-stop" id="batch-process-stop">Stop</button>
+                <button class="button button-primary" id="batch-process-start"><?php $processed_count > 0 && $processed_count < $items_count ? _e('Continue') : _e('شروع'); ?></button>
+                <button class="button" id="batch-process-restart">ریستارت</button>
+                <button class="button batch-process--button-stop" id="batch-process-stop">توقف</button>
 			<?php else: ?>
-                <button class="button-primary" id="batch-process-restart">Restart</button>
+                <button class="button-primary" id="batch-process-restart">ریستارت</button>
 			<?php endif; ?>
         </div>
     <?php else: ?>
