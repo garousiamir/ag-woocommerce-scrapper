@@ -89,14 +89,6 @@ class ComposerStaticInit6379101824604cd4f987a0d0f5504a8a
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
-        'WP_BP_Helper' => __DIR__ . '/..' . '/gdarko/wp-batch-processing/includes/class-bp-helper.php',
-        'WP_BP_List_Table' => __DIR__ . '/..' . '/gdarko/wp-batch-processing/includes/class-batch-list-table.php',
-        'WP_BP_Singleton' => __DIR__ . '/..' . '/gdarko/wp-batch-processing/includes/class-bp-singleton.php',
-        'WP_Batch' => __DIR__ . '/..' . '/gdarko/wp-batch-processing/includes/class-batch.php',
-        'WP_Batch_Item' => __DIR__ . '/..' . '/gdarko/wp-batch-processing/includes/class-batch-item.php',
-        'WP_Batch_Processing_Ajax_Handler' => __DIR__ . '/..' . '/gdarko/wp-batch-processing/includes/class-batch-ajax-handler.php',
-        'WP_Batch_Processor' => __DIR__ . '/..' . '/gdarko/wp-batch-processing/includes/class-batch-processor.php',
-        'WP_Batch_Processor_Admin' => __DIR__ . '/..' . '/gdarko/wp-batch-processing/includes/class-batch-processor-admin.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

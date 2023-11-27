@@ -6,10 +6,10 @@ class agcProduct{
 
     }
    
-    public static function ag_create_variable_product( $title , $image_id ) {
+    public static function ag_create_variable_product() {
   
         $product = new WC_Product_Variable();
-        $product->set_name( $title );
+        $product->set_name( 's' );
         $product->set_status( 'publish' ); 
         $product->set_catalog_visibility( 'visible' );
         $product->set_image_id( $image_id );

@@ -14,22 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
 
 
 //load from composer
-require 'vendor/autoload.php';
-WP_Batch_Processor::boot();
+require __DIR__ . '/vendor/autoload.php';
+
+
 
 //load the options framework
 require 'includes/codestar-framework/codestar-framework.php';
-
-
-/**
- * Initialize the batches.
- */
-function wp_batch_processing_init() {
-    $batch = new agBatch();
-    WP_Batch_Processor::get_instance()->register( $batch );
-}
-
-
+require 'includes/wp-batch-processing/wp-batch-processing.php';
 
 //automatically require classes
 spl_autoload_register( function($classname) {
@@ -40,6 +31,15 @@ spl_autoload_register( function($classname) {
         require_once( $classes );
     }    
 } );
+
+/**
+ * Initialize the batches.
+ */
+function wp_batch_processing_init() {
+    $batch = new agBatch();
+    WP_Batch_Processor::get_instance()->register( $batch );
+}
+
 
 //initializing Classes
 if(is_admin()){

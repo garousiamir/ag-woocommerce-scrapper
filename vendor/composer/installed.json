@@ -1,49 +1,6 @@
 {
     "packages": [
         {
-            "name": "gdarko/wp-batch-processing",
-            "version": "1.2.0",
-            "version_normalized": "1.2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gdarko/wp-batch-processing.git",
-                "reference": "be2a7a7b30423df09a4dd1c8098c71fa249d49dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/gdarko/wp-batch-processing/zipball/be2a7a7b30423df09a4dd1c8098c71fa249d49dd",
-                "reference": "be2a7a7b30423df09a4dd1c8098c71fa249d49dd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "time": "2023-09-19T16:02:16+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "classmap": [
-                    "includes/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Darko Gjorgjijoski",
-                    "email": "dg@darkog.com"
-                }
-            ],
-            "description": "Easily process large batches of data in WordPress. Provide the data, setup the processing procedure, run the batch processor from the admin dashboard. Profit.",
-            "support": {
-                "issues": "https://github.com/gdarko/wp-batch-processing/issues",
-                "source": "https://github.com/gdarko/wp-batch-processing/tree/1.2.0"
-            },
-            "install-path": "../gdarko/wp-batch-processing"
-        },
-        {
             "name": "guzzlehttp/guzzle",
             "version": "7.8.0",
             "version_normalized": "7.8.0.0",

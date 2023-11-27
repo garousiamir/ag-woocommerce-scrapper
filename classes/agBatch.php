@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class MY_Example_Batch
  */
@@ -26,14 +25,22 @@ class agBatch extends WP_Batch {
      */
     public function setup() {
 
-        $users = get_users( array(
-            'number' => '40',
-            'role'   => 'author',
-        ) );
+        $datas = [];
+        $options = get_option( 'ag_scrap' );
+        if(!empty($options['product_opt_repeater'])):
+            $reps = $options['product_opt_repeater'];
+            foreach ($reps as $rep):
+                $pr_link = $rep['product_rep_link'];
+                $pr_update = $rep['product_rep_update'];
+                $pr_cargo = $rep['product_rep_cargo'];
+                $this->push(new WP_Batch_Item($datas, array(
+					'pr_link' => $pr_link,
+					'pr_update' => $pr_update,
+					'pr_cargo' => $pr_cargo,
+				)));
+            endforeach;    
+        endif;    
 
-        foreach ( $users as $user ) {
-            $this->push( new WP_Batch_Item( $user->ID, array( 'author_id' => $user->ID ) ) );
-        }
     }
 
     /**
@@ -50,16 +57,16 @@ class agBatch extends WP_Batch {
      */
     public function process( $item ) {
 
-        // Retrieve the custom data
-        $author_id = $item->get_value( 'author_id' );
-
-        // Return WP_Error if the item processing failed (In our case we simply skip author with user id 5)
-        if ( $author_id == 5 ) {
-            return new WP_Error( 302, "Author skipped" );
+        if(!empty($datas)){
+            $datas = array(
+                'pr_link'=> $item->get_value('pr_link'),
+                'pr_update'=> $item->get_value('pr_update'),
+                'pr_cargo'=> $item->get_value('pr_cargo'),
+            );
         }
-
-        // Do the expensive processing here.
-        // ...
+        
+        agcProduct::ag_create_simple_product();
+        
 
         // Return true if the item processing is successful.
         return true;
@@ -75,5 +82,4 @@ class agBatch extends WP_Batch {
         // You have $this->items, etc.
     }
 }
-
 

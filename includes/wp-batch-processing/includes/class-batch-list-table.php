@@ -84,9 +84,9 @@ class WP_BP_List_Table extends \WP_List_Table {
 	 */
 	function get_columns() {
 		$columns = array(
-			'title'           => __( 'عنوان', 'wp-batch-processing' ),
-			'total_processed' => __( 'انجام شده ها', 'wp-batch-processing' ),
-			'total_items'     => __( 'مجموع', 'wp-batch-processing' ),
+			'title'           => __( 'Title', 'wp-batch-processing' ),
+			'total_processed' => __( 'Total Processed', 'wp-batch-processing' ),
+			'total_items'     => __( 'Total Items', 'wp-batch-processing' ),
 		);
 
 		return $columns;
@@ -102,7 +102,7 @@ class WP_BP_List_Table extends \WP_List_Table {
 	function column_title( $item ) {
 
 		$actions         = array();
-		$actions['edit'] = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', admin_url( 'admin.php?page=dg-batches&action=view&id=' . $item->id ), $item->id, __( 'مدیریت اسکراپ', 'wp-batch-processing' ), __( 'مدیریت', 'wp-batch-processing' ) );
+		$actions['edit'] = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', admin_url( 'admin.php?page=dg-batches&action=view&id=' . $item->id ), $item->id, __( 'Manage Batch', 'wp-batch-processing' ), __( 'Manage', 'wp-batch-processing' ) );
 
 		return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url( 'admin.php?page=dg-batches&action=view&id=' . $item->id ), $item->title, $this->row_actions( $actions ) );
 	}
