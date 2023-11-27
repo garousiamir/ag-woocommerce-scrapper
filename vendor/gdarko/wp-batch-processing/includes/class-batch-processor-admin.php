@@ -89,8 +89,8 @@ class WP_Batch_Processor_Admin {
 	public function admin_menu() {
 
 		add_menu_page(
-			__( 'Manage Batches', 'wp-batch-processing' ),
-			__( 'Batches ', 'wp-batch-processing' ),
+			__( 'اجرای اسکراپ ها', 'wp-batch-processing' ),
+			__( 'اجرای اسکراپ ', 'wp-batch-processing' ),
 			'manage_options', 'dg-batches',
 			array( $this, 'plugin_page' ),
 			'dashicons-grid-view', null
@@ -98,8 +98,8 @@ class WP_Batch_Processor_Admin {
 
 		add_submenu_page(
 			'dg-batches',
-			__( 'Batches', 'wp-batch-processing' ),
-			__( 'Batches', 'wp-batch-processing' ),
+			__( 'اجرای اسکراپ ', 'wp-batch-processing' ),
+			__( 'اجرای اسکراپ ', 'wp-batch-processing' ),
 			'manage_options',
 			'dg-batches',
 			array( $this, 'plugin_page' )

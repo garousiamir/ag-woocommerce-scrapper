@@ -15,9 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
 
 //load from composer
 require 'vendor/autoload.php';
+WP_Batch_Processor::boot();
 
 //load the options framework
 require 'includes/codestar-framework/codestar-framework.php';
+
+
+/**
+ * Initialize the batches.
+ */
+function wp_batch_processing_init() {
+    $batch = new agBatch();
+    WP_Batch_Processor::get_instance()->register( $batch );
+}
+
+
 
 //automatically require classes
 spl_autoload_register( function($classname) {
@@ -33,26 +45,8 @@ spl_autoload_register( function($classname) {
 if(is_admin()){
     $agOptions = new agOptions('ag_frame');
     $agGeneral = new agGeneral();
+    $agGeneral = new agScrap('ag_scrap');
+    add_action( 'wp_batch_processing_init', 'wp_batch_processing_init', 15, 1 );
 }
 
 
-
-// Add custom menu item to the admin dashboard
-function custom_dashboard_menu_item() {
-    add_menu_page(
-        'اسکراپر', // Page title
-        'اسکراپر', // Menu title
-        'manage_options', // Capability required to access this menu item
-        'scrapper', // Menu slug (should be unique)
-        'scrapper_page_content', // Callback function to display the page content
-        'dashicons-admin-page', // Icon for the menu item - You can choose from dashicons (https://developer.wordpress.org/resource/dashicons/)
-        999 // Position of the menu item
-    );
-}
-add_action('admin_menu', 'custom_dashboard_menu_item');
-
-// Callback function to display content for the custom page
-function scrapper_page_content() {
-    // Add your custom page content here
-    echo '<div class="wrap"><h1>Custom Page</h1><p>This is your custom page content.</p></div>';
-}

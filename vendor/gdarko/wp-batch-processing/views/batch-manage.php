@@ -48,8 +48,8 @@ $processed_count = $batch->get_processed_count();
         </div>
     <?php else: ?>
     <div class="batch-process-main">
-        <h4><?php _e('Missing data!'); ?></h4>
-        <p><?php _e('No items to process. Please set up your data.'); ?></p>
+        <h4><?php _e('بدون دیتا'); ?></h4>
+        <p><?php _e('هیچ چیزی اضافه نشده'); ?></p>
     </div>
 	<?php endif; ?>
 
