@@ -94,17 +94,17 @@ class agFetch{
 
 
    public static function ag_get_image_from_url($url){
-       // Create a new HTML DOM object
-       $html = file_get_html($url);
-   
-       // Find the image element based on the CSS selector
-       $imageElement = $html->find('#product-detail-app .gallery-container .product-image-container .base-product-image img', 0);
-   
-       if ($imageElement) {
-           return $imageElement->outertext;
-       } else {
-           return 'Image not found';
-       }
+
+        $html = file_get_html($url);
+        // Find the image element based on the CSS selector
+        $imageElement = $html->find('#product-detail-app .detail-section-img', 0);
+        
+        if ($imageElement) {
+            $imageSrc = $imageElement->src;
+            return $imageSrc;
+        } else {
+            return 'Image not found';
+        }
    }
   
 

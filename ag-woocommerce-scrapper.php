@@ -11,6 +11,7 @@
 if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
 
 //load the options framework
+require 'vendor/autoload.php';
 require 'includes/codestar-framework/codestar-framework.php';
 require 'includes/wp-batch-processing/wp-batch-processing.php';
 require 'includes/simple_html_dom.php';
@@ -44,6 +45,6 @@ function wp_batch_processing_init() {
 }
 
 
-
 $url = 'https://www.trendyol.com/bershka/fitilli-kisa-kollu-t-shirt-p-382836459?boutiqueId=618519&merchantId=104961';
-echo agFetch::ag_get_attr_from_url($url);
+echo agFetch::ag_get_image_from_url($url);
+
