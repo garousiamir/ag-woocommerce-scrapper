@@ -53,44 +53,43 @@ class agFetch{
   }
    
 
-  public static function ag_get_attr_from_url($url){
+  public static function ag_get_vars_from_url($url){
       // Create a new HTML DOM object
       $html = file_get_html($url);
   
       // Find the elements based on the class 'starred-attributes' and retrieve the first item
-      $attrElement = $html->find('.starred-attributes > li', 0);
+      $attrElement = $html->find('.size-variant-wrapper .variants', 0);
   
       if ($attrElement) {
           return $attrElement->innertext;
       } else {
-          return 'Attributes not found';
+          return 'variations not found';
       }
   }
 
+  public static function ag_get_gallery_from_url($url){
 
-  public static function ag_get_vari_from_url($url){
-      // Create a new HTML DOM object
-      $html = file_get_html($url);
+    // Fetch the HTML content from the URL
+    $html = file_get_html($url);
 
-      // Find elements for title and attribute sliders
-      $titleElements = $html->find('.slicing-attributes > section > .scl-title');
-      $attributeSliderElements = $html->find('.slicing-attributes > section > .attributeSlider > a');
+    // Find script tags with JSON-LD content
+    $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
 
-      $titles = [];
-      $attributeSliders = [];
+    return  $productScripts;
+}
 
-      // Retrieve inner HTML content for titles
-      foreach ($titleElements as $element) {
-         $titles[] = $element->innertext;
-      }
 
-      // Retrieve inner HTML content for attribute sliders
-      foreach ($attributeSliderElements as $element) {
-         $attributeSliders[] = $element->innertext;
-      }
+  
+  public static function ag_attr_from_url($url){
+    // Create a new HTML DOM object
+    $html = file_get_html($url);
+    // Find the elements based on the class 'starred-attributes' and retrieve the first item
+    $container = $html->find('.detail-attr-container', 0);
+    $container = json_decode($container,true);
+    return $container;
+}
 
-      return [$titles, $attributeSliders];
-   }
+
 
 
    public static function ag_get_image_from_url($url){
@@ -107,6 +106,4 @@ class agFetch{
         }
    }
   
-
 }
-

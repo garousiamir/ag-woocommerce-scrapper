@@ -8,10 +8,9 @@
     Author: Amirhossein Garousi
     Author URI: https://agarousi.ir
 */
-if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
+if ( ! defined( 'ABSPATH' ) ) { die; } 
 
 //load the options framework
-require 'vendor/autoload.php';
 require 'includes/codestar-framework/codestar-framework.php';
 require 'includes/wp-batch-processing/wp-batch-processing.php';
 require 'includes/simple_html_dom.php';
@@ -45,6 +44,7 @@ function wp_batch_processing_init() {
 }
 
 
-$url = 'https://www.trendyol.com/bershka/fitilli-kisa-kollu-t-shirt-p-382836459?boutiqueId=618519&merchantId=104961';
-echo agFetch::ag_get_image_from_url($url);
+$url = 'https://www.trendyol.com/penti/easy-dantel-v-kesim-siyah-brazilian-kulot-p-753954166?boutiqueId=619275&merchantId=4442&filterOverPriceListings=false&sav=true';
+echo agFetch::ag_get_gallery_from_url($url);
+
 
