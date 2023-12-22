@@ -10,8 +10,6 @@
 */
 if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
 
-//load from composer
-require __DIR__ . '/vendor/autoload.php';
 //load the options framework
 require 'includes/codestar-framework/codestar-framework.php';
 require 'includes/wp-batch-processing/wp-batch-processing.php';
