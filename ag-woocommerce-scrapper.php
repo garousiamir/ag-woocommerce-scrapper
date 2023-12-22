@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
 
 //load from composer
 require __DIR__ . '/vendor/autoload.php';
-
 //load the options framework
 require 'includes/codestar-framework/codestar-framework.php';
 require 'includes/wp-batch-processing/wp-batch-processing.php';
+require 'includes/simple_html_dom.php';
 
 //automatically require classes
 spl_autoload_register( function($classname) {
@@ -47,19 +47,5 @@ function wp_batch_processing_init() {
 
 
 
-$product_url= 'https://www.trendyol.com/stanley/klasik-trigger-action-seyahat-bardagi-0-47-lt-p-34050838';
-$response = wp_remote_get($product_url);
-
-if (is_wp_error($response)) {
-    // Handle error if failed to fetch URL
-    return false;
-}
-
-$body = wp_remote_retrieve_body($response);
-
-// Use DOMDocument or other methods to parse the HTML and extract required information like title, thumbnail, price, etc.
-$doc = new DOMDocument();
-libxml_use_internal_errors(true); // Suppress HTML errors
-$doc->loadHTML($body);
-libxml_clear_errors();
-
+$url = 'https://www.trendyol.com/bershka/fitilli-kisa-kollu-t-shirt-p-382836459?boutiqueId=618519&merchantId=104961';
+echo agFetch::ag_get_attr_from_url($url);
