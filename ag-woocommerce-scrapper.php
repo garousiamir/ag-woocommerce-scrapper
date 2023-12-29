@@ -44,7 +44,3 @@ function wp_batch_processing_init() {
 }
 
 
-$url = 'https://www.trendyol.com/penti/easy-dantel-v-kesim-siyah-brazilian-kulot-p-753954166?boutiqueId=619275&merchantId=4442&filterOverPriceListings=false&sav=true';
-echo agFetch::ag_get_gallery_from_url($url);
-
-

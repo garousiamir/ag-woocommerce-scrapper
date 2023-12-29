@@ -1,7 +1,6 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { die; }  // Cannot access directly.
 
-use PHPHtmlParser\Dom;
 class agFetch{
     
     public function __construct(){
@@ -74,8 +73,9 @@ class agFetch{
 
     // Find script tags with JSON-LD content
     $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
-
-    return  $productScripts;
+    $json = json_decode($productScripts ,true);
+    $images = $json['image'];
+    return  $images;
 }
 
 
