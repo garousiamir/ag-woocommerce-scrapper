@@ -81,9 +81,28 @@ class agFetch{
         $html = file_get_html($url);
         // Find the elements based on the class 'starred-attributes' and retrieve the first item
         $container = $html->find('.detail-attr-container', 0);
-        $container = json_decode($container,true);
-        return $container;
+        if(!empty($container)){
+        $doc = new DOMDocument();
+        $doc->loadHTML($container);
+
+        $liElements = $doc->getElementsByTagName('li');
+
+        $firsts = [];
+        $seconds = [];
+        foreach ($liElements as $li) {
+            $spans = $li->getElementsByTagName('span');
+            
+            if ($spans->length >= 2) {
+                $firstSpan = $spans->item(0)->nodeValue;
+                $secondSpan = $spans->item(1)->nodeValue;
+
+                $firsts[] = $firstSpan . PHP_EOL;
+                $seconds[] = $secondSpan . PHP_EOL;
+
+            }
+        }
+        }
+        return [$firsts,$seconds];
     }
-  
 
 }
