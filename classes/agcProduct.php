@@ -19,7 +19,7 @@ class agcProduct{
         $attribute = new WC_Product_Attribute();
         $attribute->set_id( wc_attribute_taxonomy_id_by_name( 'pa_color' ) );
         $attribute->set_name( 'pa_color' );
-        $attribute->set_options( array( 29, 30 ) ); // color att terms
+        $attribute->set_options( array( 29, 30 ) );
         $attribute->set_position( 1 );
         $attribute->set_visible( 1 );
         $attribute->set_variation( 1 );
@@ -43,30 +43,27 @@ class agcProduct{
 
     public static function ag_create_simple_product($title) {
 
-        $product = new WC_Product(); // Create a new WC_Product instance
-        $product->set_name($title); // Product name
-        $product->set_status('publish'); // Product status (publish, draft, etc.)
-        $product->set_catalog_visibility('visible'); // Product visibility on the catalog (visible, hidden, etc.)
-        $product->set_description('This is a sample product description.'); // Product description
-        $product->set_short_description('Short description for the sample product.'); // Short description
-        $product->set_regular_price(19.99); // Regular price
-        $product->set_manage_stock(true); // Manage stock (true or false)
-        $product->set_stock_quantity(10); // Stock quantity
-        $product->set_stock_status('instock'); // Stock status (instock, outofstock)
-        $product->set_backorders('no'); // Allow backorders (yes, no, notify)
-        // $product->set_sku('SAMPLESKU001'); // Product SKU
-
-        // $product->set_category_ids(array(12)); // Array of category IDs
-        // $product->set_tag_ids(array(34)); // Array of tag IDs
-
-        // $image_url = 'https://example.com/sample-product-image.jpg'; // URL of the product image
-        // $image_id = media_sideload_image($image_url, 0, '', 'id'); // Download and attach the image
+        $product = new WC_Product(); 
+        $product->set_name($title); 
+        $product->set_status('publish'); 
+        $product->set_catalog_visibility('visible'); 
+        $product->set_description('This is a sample product description.');
+        $product->set_short_description('Short description for the sample product.'); 
+        $product->set_regular_price(19.99); 
+        $product->set_manage_stock(true); 
+        $product->set_stock_quantity(10); 
+        $product->set_stock_status('instock'); 
+        $product->set_backorders('no'); 
+        // $product->set_sku('SAMPLESKU001');
+        // $product->set_category_ids(array(12));
+        // $product->set_tag_ids(array(34)); 
+        // $image_url = 'https://example.com/sample-product-image.jpg'; 
+        // $image_id = media_sideload_image($image_url, 0, '', 'id');
         // if (!is_wp_error($image_id)) {
-        //     $product->set_image_id($image_id); // Set the image ID for the product
+        //     $product->set_image_id($image_id); 
         // }
-
         // Save the product
-        $product_id = $product->save(); // Save the product and get the product ID
+        $product_id = $product->save(); 
 
     }
 

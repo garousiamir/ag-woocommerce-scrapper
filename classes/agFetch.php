@@ -30,10 +30,13 @@ class agFetch{
       $priceElement = $html->find('.prc-dsc', 0);
   
       if ($priceElement) {
-          return $priceElement->innertext;
+          $string = $priceElement->innertext;
+          $number = (int) preg_replace('/[^0-9]/', '', $string);
+          return $number;
       } else {
           return 'Price not found';
       }
+       
   }
 
 
