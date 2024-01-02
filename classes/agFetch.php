@@ -19,8 +19,7 @@ class agFetch{
       } else {
          return 'Title not found';
       }
-   }
-
+    }
 
     public static function ag_get_price_from_url($url){
       // Create a new HTML DOM object
@@ -35,15 +34,13 @@ class agFetch{
           return $number;
       } else {
           return 'Price not found';
-      }
+     }
        
-  }
-
+    }
 
    public static function ag_get_desc_from_url($url){
       // Create a new HTML DOM object
       $html = file_get_html($url);
-  
       // Find the element based on the class 'info-wrapper'
       $descElement = $html->find('.info-wrapper', 0);
   
@@ -52,8 +49,7 @@ class agFetch{
       } else {
           return 'Description not found';
       }
-  }
-   
+    }
 
   public static function ag_get_vars_from_url($url){
       // Create a new HTML DOM object
@@ -67,46 +63,27 @@ class agFetch{
       } else {
           return 'variations not found';
       }
-  }
+    }
 
-  public static function ag_get_gallery_from_url($url){
-
-    // Fetch the HTML content from the URL
-    $html = file_get_html($url);
-
-    // Find script tags with JSON-LD content
-    $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
-    $json = json_decode($productScripts ,true);
-    $images = $json['image'];
-    return  $images;
-}
-
-
-  
-  public static function ag_attr_from_url($url){
-    // Create a new HTML DOM object
-    $html = file_get_html($url);
-    // Find the elements based on the class 'starred-attributes' and retrieve the first item
-    $container = $html->find('.detail-attr-container', 0);
-    $container = json_decode($container,true);
-    return $container;
-}
-
-
-
-
-   public static function ag_get_image_from_url($url){
-
+    public static function ag_get_gallery_from_url($url){
+        // Fetch the HTML content from the URL
         $html = file_get_html($url);
-        // Find the image element based on the CSS selector
-        $imageElement = $html->find('#product-detail-app .detail-section-img', 0);
-        
-        if ($imageElement) {
-            $imageSrc = $imageElement->src;
-            return $imageSrc;
-        } else {
-            return 'Image not found';
-        }
-   }
+
+        // Find script tags with JSON-LD content
+        $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
+        $json = json_decode($productScripts ,true);
+        $images = $json['image'];
+        return  $images;
+    }
+
+    public static function ag_attr_from_url($url){
+        // Create a new HTML DOM object
+        $html = file_get_html($url);
+        // Find the elements based on the class 'starred-attributes' and retrieve the first item
+        $container = $html->find('.detail-attr-container', 0);
+        $container = json_decode($container,true);
+        return $container;
+    }
   
+
 }

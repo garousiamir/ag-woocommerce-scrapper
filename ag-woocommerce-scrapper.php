@@ -61,6 +61,3 @@ function delete_tr(){
 
 // add_action( 'init', 'delete_tr' );
 
-
-$url = 'https://www.trendyol.com/bershka/fitilli-kisa-kollu-t-shirt-p-382836459?boutiqueId=618519&merchantId=104961';
-echo agFetch::ag_get_price_from_url($url);
