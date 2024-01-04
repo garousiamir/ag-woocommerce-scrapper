@@ -7,7 +7,14 @@ class agcProduct{
 
     }
    
-    public static function ag_create_variable_product($title) {
+    // $product_title
+    // $product_price
+    // $product_desc
+    // $product_vars
+    // $product_images
+    // $product_attributes
+    
+    public static function ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes) {
   
         $product = new WC_Product_Variable();
         $product->set_name($title);
@@ -41,7 +48,7 @@ class agcProduct{
      
     }
 
-    public static function ag_create_simple_product($title) {
+    public static function ag_create_simple_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes) {
 
         $product = new WC_Product(); 
         $product->set_name($title); 

@@ -106,13 +106,3 @@ class agFetch{
     }
 
 }
-
-
-
-// $product_title
-// $product_price
-// $product_desc
-// $product_vars
-// $product_images
-// $product_attributes
-
