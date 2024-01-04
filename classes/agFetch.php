@@ -38,7 +38,7 @@ class agFetch{
        
     }
 
-   public static function ag_get_desc_from_url($url){
+    public static function ag_get_desc_from_url($url){
       // Create a new HTML DOM object
       $html = file_get_html($url);
       // Find the element based on the class 'info-wrapper'
@@ -51,7 +51,7 @@ class agFetch{
       }
     }
 
-  public static function ag_get_vars_from_url($url){
+    public static function ag_get_vars_from_url($url){
       // Create a new HTML DOM object
       $html = file_get_html($url);
   

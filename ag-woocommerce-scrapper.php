@@ -44,8 +44,6 @@ function wp_batch_processing_init() {
 }
 
 
-
-
 /**
  * test product creation
  */

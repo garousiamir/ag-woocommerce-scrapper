@@ -90,4 +90,3 @@ class agBatch extends WP_Batch {
         // You have $this->items, etc.
     }
 }
-

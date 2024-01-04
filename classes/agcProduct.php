@@ -47,7 +47,6 @@ class agcProduct{
      
     }
 
-
  
     // $product_vars
     // $product_images
