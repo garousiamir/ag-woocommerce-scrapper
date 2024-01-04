@@ -45,9 +45,13 @@ function wp_batch_processing_init() {
 
 
 
+
+/**
+ * test product creation
+ */
 function my_function_to_run_once() {
     agcProduct::ag_create_simple_product('salam');
-     set_transient('my_function_executed', true, 3600);
+     set_transient('my_function_executed', true, 36000);
  }
 
  $function_executed = get_transient('my_function_executed');
@@ -60,4 +64,3 @@ function delete_tr(){
 } 
 
 // add_action( 'init', 'delete_tr' );
-
