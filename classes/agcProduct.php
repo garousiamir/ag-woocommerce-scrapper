@@ -7,9 +7,7 @@ class agcProduct{
 
     }
    
-    // $product_title
     // $product_price
-    // $product_desc
     // $product_vars
     // $product_images
     // $product_attributes
@@ -17,9 +15,10 @@ class agcProduct{
     public static function ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes) {
   
         $product = new WC_Product_Variable();
-        $product->set_name($title);
+        $product->set_name($product_title);
         $product->set_status( 'publish' ); 
         $product->set_catalog_visibility( 'visible' );
+        $product->set_description($product_desc);
         $product->set_image_id( $image_id );
         $product->set_category_ids( array( 20 ) );
      
@@ -48,17 +47,21 @@ class agcProduct{
      
     }
 
+
+ 
+    // $product_vars
+    // $product_images
+    // $product_attributes
+
     public static function ag_create_simple_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes) {
 
         $product = new WC_Product(); 
-        $product->set_name($title); 
+        $product->set_name($product_title); 
         $product->set_status('publish'); 
         $product->set_catalog_visibility('visible'); 
-        $product->set_description('This is a sample product description.');
-        $product->set_short_description('Short description for the sample product.'); 
-        $product->set_regular_price(19.99); 
+        $product->set_description($product_desc);
+        $product->set_regular_price($product_price); 
         $product->set_manage_stock(true); 
-        $product->set_stock_quantity(10); 
         $product->set_stock_status('instock'); 
         $product->set_backorders('no'); 
         // $product->set_sku('SAMPLESKU001');
