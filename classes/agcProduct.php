@@ -11,8 +11,9 @@ class agcProduct{
     // $product_vars
     // $product_images
     // $product_attributes
+    // $product_cat
     
-    public static function ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes) {
+    public static function ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat) {
   
         $product = new WC_Product_Variable();
         $product->set_name($product_title);
@@ -20,7 +21,7 @@ class agcProduct{
         $product->set_catalog_visibility( 'visible' );
         $product->set_description($product_desc);
         $product->set_image_id( $image_id );
-        $product->set_category_ids( array( 20 ) );
+        $product->set_category_ids( $product_cat );
      
         $attribute = new WC_Product_Attribute();
         $attribute->set_id( wc_attribute_taxonomy_id_by_name( 'pa_color' ) );
@@ -52,7 +53,7 @@ class agcProduct{
     // $product_images
     // $product_attributes
 
-    public static function ag_create_simple_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes) {
+    public static function ag_create_simple_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat) {
 
         $product = new WC_Product(); 
         $product->set_name($product_title); 
@@ -62,20 +63,13 @@ class agcProduct{
         $product->set_regular_price($product_price); 
         $product->set_manage_stock(true); 
         $product->set_stock_status('instock'); 
-        $product->set_backorders('no'); 
-        // $product->set_sku('SAMPLESKU001');
-        // $product->set_category_ids(array(12));
-        // $product->set_tag_ids(array(34)); 
-        // $image_url = 'https://example.com/sample-product-image.jpg'; 
-        // $image_id = media_sideload_image($image_url, 0, '', 'id');
-        // if (!is_wp_error($image_id)) {
-        //     $product->set_image_id($image_id); 
-        // }
+        $product->set_backorders('no');
+        $product->set_category_ids($product_cat); 
+        $product->set_image_id( $image_id );
         // Save the product
         $product_id = $product->save(); 
 
     }
-
 
 }
 

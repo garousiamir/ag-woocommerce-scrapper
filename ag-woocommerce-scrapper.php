@@ -44,21 +44,11 @@ function wp_batch_processing_init() {
 }
 
 
-/**
- * test product creation
- */
-function my_function_to_run_once() {
-    agcProduct::ag_create_simple_product('salam');
-     set_transient('my_function_executed', true, 36000);
- }
+add_action( 'init', 'amir' );
 
- $function_executed = get_transient('my_function_executed');
- if (!$function_executed) {
-     add_action( 'init', 'my_function_to_run_once' );
- }
- 
-function delete_tr(){
-    delete_transient('my_function_executed');
-} 
+function amir(){
+    $url ='https://www.trendyol.com/collagen-life/5-tip-kolajen-tip-1-tip-2-tip-3-tip-5-tip-10-selenyum-c-vitamini-ve-cinko-90-tablet-p-661983701?boutiqueId=621707&merchantId=783518&sav=true';
 
-// add_action( 'init', 'delete_tr' );
+   
+}   
+

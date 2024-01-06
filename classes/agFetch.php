@@ -17,7 +17,7 @@ class agFetch{
       if ($titleElement) {
          return $titleElement->innertext;
       } else {
-         return 'Title not found';
+         return false;
       }
     }
 
@@ -33,7 +33,7 @@ class agFetch{
           $number = (int) preg_replace('/[^0-9]/', '', $string);
           return $number;
       } else {
-          return 'Price not found';
+          return false;
      }
        
     }
@@ -47,7 +47,7 @@ class agFetch{
       if ($descElement) {
           return $descElement->innertext;
       } else {
-          return 'Description not found';
+          return false;
       }
     }
 
@@ -61,7 +61,7 @@ class agFetch{
       if ($attrElement) {
           return $attrElement->innertext;
       } else {
-          return 'variations not found';
+          return false;
       }
     }
 
@@ -102,7 +102,11 @@ class agFetch{
             }
         }
         }
-        return [$firsts,$seconds];
+        if(!empty($firsts)){
+            return [$firsts,$seconds];
+        }else{
+            return false;
+        }
     }
 
 }
