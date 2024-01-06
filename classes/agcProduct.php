@@ -8,41 +8,52 @@ class agcProduct{
     }
 
 
-    public static function ag_create_attributes($product){
+    public static function ag_create_attributes($product,$product_attributes){
 
-        $attribute = new WC_Product_Attribute();
-        $attribute->set_id( wc_attribute_taxonomy_id_by_name( 'pa_color' ) );
-        $attribute->set_name( 'pa_color' );
-        $attribute->set_options( array( 29, 30 ) );
-        $attribute->set_position( 1 );
-        $attribute->set_visible( 1 );
-        $attribute->set_variation( 1 );
-        $attributes[] = $attribute;
+        if ( !is_a( $product, 'WC_Product' ) ) {
+            return;
+        }
+
+        $attributes = [];
+        $numbers = count($product_attributes[0]);
+        for ($i=0; $i < $numbers; $i++) { 
+            $attribute = new WC_Product_Attribute();
+            $attribute->set_id( wc_attribute_taxonomy_id_by_name( $product_attributes[0][$i] ) );
+            $attribute->set_name( $product_attributes[0][$i] );
+            $attribute->set_options( array( $product_attributes[1][$i] ) );
+            $attribute->set_position( 1 );
+            $attribute->set_visible( 1 );
+            $attribute->set_variation( 1 );
+            $attributes[] = $attribute;
+        }
         $product->set_attributes( $attributes );
 
     }
 
-    public static function ag_create_variations($product){
+    public static function ag_create_variations($product,$product_vars,$product_price){
 
-        $variation1 = new WC_Product_Variation();
-        $variation1->set_parent_id( $product->get_id() );
-        $variation1->set_attributes( array( 'pa_color' => '29' ) );
-        $variation1->set_regular_price( 99.99 );
-        $variation1->save();
-     
-        $variation2 = new WC_Product_Variation();
-        $variation2->set_parent_id( $product->get_id() );
-        $variation2->set_attributes( array( 'pa_color' => '30' ) );
-        $variation2->set_regular_price( 197.99 );
-        $variation2->save();
+        if ( !is_a( $product, 'WC_Product' ) ) {
+            return;
+        }
+        
+        $attribute = new WC_Product_Attribute();
+        $attribute->set_id( wc_attribute_taxonomy_id_by_name( $product_vars[0] ) );
+        $attribute->set_name( $product_vars[0] );
+        $attribute->set_options( $product_vars[1] );
+        $attribute->set_visible( 0 );
+        $attribute->set_variation( 1 );
+        $attributes[] = $attribute;
+        $product->set_attributes( $attributes );
+
+        foreach($product_vars[1] as $product_var){
+            $variation = new WC_Product_Variation();
+            $variation->set_parent_id( $product->get_id() );
+            $variation->set_attributes( array( $product_vars[0] => $product_var ) );
+            $variation->set_regular_price( $product_price );
+            $variation->save();
+        }
+        
     }
-    
-   
-    // $product_price
-    // $product_vars
-    // $product_images
-    // $product_attributes
-    // $product_cat
     
     public static function ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat) {
   
@@ -51,21 +62,21 @@ class agcProduct{
         $product->set_status( 'publish' ); 
         $product->set_catalog_visibility( 'visible' );
         $product->set_description($product_desc);
-        $product->set_image_id( $image_id );
+        $product->set_image_id( agPicupload::ag_download_image_to_media_library($product_images[0]) );
+        $image_ids = [];
+        $images_count = count($product_images);
+        for ($i=1; $i < $images_count; $i++) { 
+            $image_ids[] = agPicupload::ag_download_image_to_media_library($product_images[$i]);
+        }
+        $product->set_gallery_image_ids( $image_ids );
         $product->set_category_ids( $product_cat );
-        
+        self::ag_create_attributes($product,$product_attributes);
+        self::ag_create_variations($product,$product_vars,$product_price);
         $product->save();
-     
-
      
     }
 
- 
-    // $product_vars
-    // $product_images
-    // $product_attributes
-
-    public static function ag_create_simple_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat) {
+    public static function ag_create_simple_product($product_title,$product_price,$product_desc,$product_images,$product_attributes,$product_cat) {
 
         $product = new WC_Product(); 
         $product->set_name($product_title); 
@@ -76,9 +87,14 @@ class agcProduct{
         $product->set_manage_stock(true); 
         $product->set_stock_status('instock'); 
         $product->set_backorders('no');
+        self::ag_create_attributes($product,$product_attributes);
         $product->set_category_ids($product_cat); 
-        $product->set_image_id( $image_id );
-        // Save the product
+        $product->set_image_id( agPicupload::ag_download_image_to_media_library($product_images[0]) );
+        $image_ids = [];
+        $images_count = count($product_images);
+        for ($i=1; $i < $images_count; $i++) { 
+            $image_ids[] = agPicupload::ag_download_image_to_media_library($product_images[$i]);
+        }
         $product_id = $product->save(); 
 
     }

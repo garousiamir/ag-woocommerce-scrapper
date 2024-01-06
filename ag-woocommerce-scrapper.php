@@ -42,11 +42,3 @@ function wp_batch_processing_init() {
     $batch = new agBatch();
     WP_Batch_Processor::get_instance()->register( $batch );
 }
-
-
-add_action( 'init', 'amir' );
-
-function amir(){
-    $url ='https://www.trendyol.com/collagen-life/5-tip-kolajen-tip-1-tip-2-tip-3-tip-5-tip-10-selenyum-c-vitamini-ve-cinko-90-tablet-p-661983701?boutiqueId=621707&merchantId=783518&sav=true';
-    $amir = agFetch::ag_attr_from_url($url);
-}   
