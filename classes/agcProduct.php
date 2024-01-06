@@ -6,6 +6,37 @@ class agcProduct{
     public function __construct(){
 
     }
+
+
+    public static function ag_create_attributes($product){
+
+        $attribute = new WC_Product_Attribute();
+        $attribute->set_id( wc_attribute_taxonomy_id_by_name( 'pa_color' ) );
+        $attribute->set_name( 'pa_color' );
+        $attribute->set_options( array( 29, 30 ) );
+        $attribute->set_position( 1 );
+        $attribute->set_visible( 1 );
+        $attribute->set_variation( 1 );
+        $attributes[] = $attribute;
+        $product->set_attributes( $attributes );
+
+    }
+
+    public static function ag_create_variations($product){
+
+        $variation1 = new WC_Product_Variation();
+        $variation1->set_parent_id( $product->get_id() );
+        $variation1->set_attributes( array( 'pa_color' => '29' ) );
+        $variation1->set_regular_price( 99.99 );
+        $variation1->save();
+     
+        $variation2 = new WC_Product_Variation();
+        $variation2->set_parent_id( $product->get_id() );
+        $variation2->set_attributes( array( 'pa_color' => '30' ) );
+        $variation2->set_regular_price( 197.99 );
+        $variation2->save();
+    }
+    
    
     // $product_price
     // $product_vars
@@ -22,29 +53,10 @@ class agcProduct{
         $product->set_description($product_desc);
         $product->set_image_id( $image_id );
         $product->set_category_ids( $product_cat );
-     
-        $attribute = new WC_Product_Attribute();
-        $attribute->set_id( wc_attribute_taxonomy_id_by_name( 'pa_color' ) );
-        $attribute->set_name( 'pa_color' );
-        $attribute->set_options( array( 29, 30 ) );
-        $attribute->set_position( 1 );
-        $attribute->set_visible( 1 );
-        $attribute->set_variation( 1 );
-        $attributes[] = $attribute;
-        $product->set_attributes( $attributes );
+        
         $product->save();
      
-        $variation1 = new WC_Product_Variation();
-        $variation1->set_parent_id( $product->get_id() );
-        $variation1->set_attributes( array( 'pa_color' => '29' ) );
-        $variation1->set_regular_price( 99.99 );
-        $variation1->save();
-     
-        $variation2 = new WC_Product_Variation();
-        $variation2->set_parent_id( $product->get_id() );
-        $variation2->set_attributes( array( 'pa_color' => '30' ) );
-        $variation2->set_regular_price( 197.99 );
-        $variation2->save();
+
      
     }
 
