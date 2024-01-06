@@ -42,3 +42,12 @@ function wp_batch_processing_init() {
     $batch = new agBatch();
     WP_Batch_Processor::get_instance()->register( $batch );
 }
+
+
+$product_title = agFetch::ag_get_title_from_url();
+$product_price = agFetch::ag_get_price_from_url();
+$product_desc  = agFetch::ag_get_desc_from_url();
+$product_images= agFetch::ag_get_gallery_from_url();
+$product_attributes = agFetch::ag_attr_from_url();
+$product_vars = agFetch::ag_get_vars_from_url();
+$product_cat = '';
