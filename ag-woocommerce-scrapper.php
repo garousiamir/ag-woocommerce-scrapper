@@ -10,10 +10,9 @@
 */
 if ( ! defined( 'ABSPATH' ) ) { die; } 
 
-//load the options framework
-require 'includes/codestar-framework/codestar-framework.php';
-require 'includes/wp-batch-processing/wp-batch-processing.php';
-require 'includes/simple_html_dom.php';
+require_once 'includes/codestar-framework/codestar-framework.php';
+require_once 'includes/wp-batch-processing/wp-batch-processing.php';
+require_once 'includes/simple_html_dom.php';
 
 //automatically require classes
 spl_autoload_register( function($classname) {
@@ -24,6 +23,8 @@ spl_autoload_register( function($classname) {
         require_once( $classes );
     }    
 } );
+
+$requires = new agRequired();
 
 /**
  * Initialize the classes.
@@ -51,3 +52,41 @@ function wp_batch_processing_init() {
 // $product_attributes = agFetch::ag_attr_from_url();
 // $product_vars = agFetch::ag_get_vars_from_url();
 // $product_cat = '';
+
+
+
+function amir(){
+    $options = get_option( 'ag_scrap' );
+    $reps = $options['product_opt_repeater'];
+    $pr_link = $reps[0]['product_rep_link'];
+
+    $url = $pr_link;
+    
+    $product_title = agFetch::ag_get_title_from_url($url);
+    $product_price = agFetch::ag_get_price_from_url($url);
+    $product_desc  = agFetch::ag_get_desc_from_url($url);
+    $product_images= agFetch::ag_get_gallery_from_url($url);
+    $product_attributes = agFetch::ag_attr_from_url($url);
+    $product_vars = agFetch::ag_get_vars_from_url($url);
+    // $product_cat = '';
+
+    var_dump($product_title);
+    echo '<br>';
+    var_dump($product_price);
+    echo '<br>';
+    var_dump($product_desc);
+    echo '<br>';
+    var_dump($product_images);
+    echo '<br>';
+    var_dump($product_attributes);
+    echo '<br>';
+    var_dump($product_vars);
+    echo '<br>';
+    
+    // if($product_vars !== false){
+    //     agcProduct::ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat);
+    // }else{
+    //     agcProduct::ag_create_simple_product($product_title,$product_price,$product_desc,$product_images,$product_attributes,$product_cat);
+    // }
+}
+add_action( 'init', 'amir' );

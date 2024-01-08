@@ -65,8 +65,6 @@ class agBatch extends WP_Batch {
         );
 
         $url = $datas['pr_link'];
-        $url = strval($url);
-       
         $product_title = agFetch::ag_get_title_from_url($url);
         $product_price = agFetch::ag_get_price_from_url($url);
         $product_desc  = agFetch::ag_get_desc_from_url($url);
