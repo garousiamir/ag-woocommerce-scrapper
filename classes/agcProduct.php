@@ -72,7 +72,6 @@ class agcProduct{
         $product->set_category_ids( $product_cat );
         if($product_attributes){
             self::ag_create_attributes($product,$product_attributes);
-
         }
         if($product_vars){
             self::ag_create_variations($product,$product_vars,$product_price);

@@ -66,14 +66,18 @@ class agBatch extends WP_Batch {
 
         $url = $datas['pr_link'];
         $url = strval($url);
-        $title = agFetch::ag_get_title_from_url($url);
-        $title = strip_tags($title);
-
-        if(!empty($title)){
-            agcProduct::ag_create_variable_product($title);
-        }
-        else{
-            return new WP_Error( 302, "title does not exist" );
+       
+        $product_title = agFetch::ag_get_title_from_url($url);
+        $product_price = agFetch::ag_get_price_from_url($url);
+        $product_desc  = agFetch::ag_get_desc_from_url($url);
+        $product_images= agFetch::ag_get_gallery_from_url($url);
+        $product_attributes = agFetch::ag_attr_from_url($url);
+        $product_vars = agFetch::ag_get_vars_from_url($url);
+        // $product_cat = '';
+        if($product_vars !== false){
+            agcProduct::ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat);
+        }else{
+            agcProduct::ag_create_simple_product($product_title,$product_price,$product_desc,$product_images,$product_attributes,$product_cat);
         }
 
         // Return true if the item processing is successful.

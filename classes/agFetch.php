@@ -13,9 +13,9 @@ class agFetch{
 
       // Find the title element based on the class 'pr-new-br'
       $titleElement = $html->find('h1.pr-new-br', 0);
-
+      $title = strip_tags($titleElement->innertext);
       if ($titleElement) {
-         return $titleElement->innertext;
+         return $title;
       } else {
          return false;
       }
