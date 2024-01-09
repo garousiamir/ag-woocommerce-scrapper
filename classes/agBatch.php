@@ -71,7 +71,9 @@ class agBatch extends WP_Batch {
         $product_images= agFetch::ag_get_gallery_from_url($url);
         $product_attributes = agFetch::ag_attr_from_url($url);
         $product_vars = agFetch::ag_get_vars_from_url($url);
-        // $product_cat = '';
+        $product_cat = [];
+        $product_cat[] = '15';
+
         if($product_vars !== false){
             agcProduct::ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat);
         }else{

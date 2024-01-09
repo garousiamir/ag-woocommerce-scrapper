@@ -24,7 +24,6 @@ spl_autoload_register( function($classname) {
     }    
 } );
 
-$requires = new agRequired();
 
 /**
  * Initialize the classes.
@@ -59,16 +58,15 @@ function amir(){
     $options = get_option( 'ag_scrap' );
     $reps = $options['product_opt_repeater'];
     $pr_link = $reps[0]['product_rep_link'];
-
     $url = $pr_link;
-    
     $product_title = agFetch::ag_get_title_from_url($url);
     $product_price = agFetch::ag_get_price_from_url($url);
     $product_desc  = agFetch::ag_get_desc_from_url($url);
     $product_images= agFetch::ag_get_gallery_from_url($url);
     $product_attributes = agFetch::ag_attr_from_url($url);
     $product_vars = agFetch::ag_get_vars_from_url($url);
-    // $product_cat = '';
+    $product_cat = [];
+    $product_cat[] = '15'; 
 
     var_dump($product_title);
     echo '<br>';
@@ -83,10 +81,10 @@ function amir(){
     var_dump($product_vars);
     echo '<br>';
     
-    // if($product_vars !== false){
-    //     agcProduct::ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat);
-    // }else{
-    //     agcProduct::ag_create_simple_product($product_title,$product_price,$product_desc,$product_images,$product_attributes,$product_cat);
-    // }
+   if($product_vars){
+       agcProduct::ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat);
+   }else{
+       agcProduct::ag_create_simple_product($product_title,$product_price,$product_desc,$product_images,$product_attributes,$product_cat);
+   }
 }
-add_action( 'init', 'amir' );
+// add_action( 'init', 'amir' );

@@ -56,28 +56,31 @@ class agFetch{
       $html = file_get_html($url);
 
       $attrElementtitle = $html->find('.size-variant-wrapper', 0);
-      $doc = new DOMDocument();
-      $doc->loadHTML($attrElementtitle);
-      $spanElements = $doc->getElementsByTagName('span');
-      foreach ($spanElements as $span) {
-          if ($span->getAttribute('class') === 'size-variant-title') {
-              $titleElement = $span->getElementsByTagName('span')->item(0);
-              $titlee = $titleElement->textContent;
-          }
-      }
-      $attrElement = $html->find('.size-variant-wrapper .variants', 0);
+      if(!empty($attrElement)){
+        $doc = new DOMDocument();
+        $doc->loadHTML($attrElementtitle);
+        $spanElements = $doc->getElementsByTagName('span');
+        foreach ($spanElements as $span) {
+            if ($span->getAttribute('class') === 'size-variant-title') {
+                $titleElement = $span->getElementsByTagName('span')->item(0);
+                $titlee = $titleElement->textContent;
+            }
+        }
+        $attrElement = $html->find('.size-variant-wrapper .variants', 0);
 
-      $dom = new DOMDocument();
-      $dom->loadHTML($attrElement);
-      $xpath = new DOMXPath($dom);
-      $elements = $xpath->query('//div[@title]');
-      $vars = [];
-      if ($elements !== false) {
-          foreach ($elements as $element) {
-              $title = $element->textContent;
-              $vars[] = $title;
-          }
+        $dom = new DOMDocument();
+        $dom->loadHTML($attrElement);
+        $xpath = new DOMXPath($dom);
+        $elements = $xpath->query('//div[@title]');
+        $vars = [];
+        if ($elements !== false) {
+            foreach ($elements as $element) {
+                $title = $element->textContent;
+                $vars[] = $title;
+            }
+        }
       }
+      
   
       if (!empty($vars)) {
           return [$titlee , $vars];
