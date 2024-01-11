@@ -54,7 +54,6 @@ class agFetch{
     public static function ag_get_vars_from_url($url){
       // Create a new HTML DOM object
       $html = file_get_html($url);
-
       $attrElementtitle = $html->find('.size-variant-wrapper', 0);
       if(!empty($attrElement)){
         $doc = new DOMDocument();
@@ -67,7 +66,6 @@ class agFetch{
             }
         }
         $attrElement = $html->find('.size-variant-wrapper .variants', 0);
-
         $dom = new DOMDocument();
         $dom->loadHTML($attrElement);
         $xpath = new DOMXPath($dom);
@@ -80,14 +78,13 @@ class agFetch{
             }
         }
       }
-      
-  
       if (!empty($vars)) {
           return [$titlee , $vars];
       } else {
           return false;
       }
     }
+    
 
     public static function ag_get_gallery_from_url($url){
         // Fetch the HTML content from the URL
