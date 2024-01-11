@@ -52,39 +52,24 @@ class agFetch{
     }
 
     public static function ag_get_vars_from_url($url){
-      // Create a new HTML DOM object
-      $html = file_get_html($url);
-      $attrElementtitle = $html->find('.size-variant-wrapper', 0);
-      if(!empty($attrElement)){
-        $doc = new DOMDocument();
-        $doc->loadHTML($attrElementtitle);
-        $spanElements = $doc->getElementsByTagName('span');
-        foreach ($spanElements as $span) {
-            if ($span->getAttribute('class') === 'size-variant-title') {
-                $titleElement = $span->getElementsByTagName('span')->item(0);
-                $titlee = $titleElement->textContent;
-            }
+
+        // Fetch the HTML content from the URL
+        $html = file_get_html($url);
+        // Create a DOM object
+        // Find the variation title
+        $variation_title = $html->find('.size-variant-title--bold', 0)->plaintext;
+        // Find script tags with JSON-LD content
+        $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
+        $json = json_decode($productScripts ,true);
+        $images = $json['hasVariant'];
+        $values = [];
+        foreach ($images as $image) {
+            $values[] = $image['size'];
         }
-        $attrElement = $html->find('.size-variant-wrapper .variants', 0);
-        $dom = new DOMDocument();
-        $dom->loadHTML($attrElement);
-        $xpath = new DOMXPath($dom);
-        $elements = $xpath->query('//div[@title]');
-        $vars = [];
-        if ($elements !== false) {
-            foreach ($elements as $element) {
-                $title = $element->textContent;
-                $vars[] = $title;
-            }
-        }
-      }
-      if (!empty($vars)) {
-          return [$titlee , $vars];
-      } else {
-          return false;
-      }
+        return [$variation_title,$values];
+       
     }
-    
+
 
     public static function ag_get_gallery_from_url($url){
         // Fetch the HTML content from the URL
@@ -95,6 +80,7 @@ class agFetch{
         $json = json_decode($productScripts ,true);
         $images = $json['image'];
         return  $images;
+        
     }
 
     public static function ag_attr_from_url($url){
