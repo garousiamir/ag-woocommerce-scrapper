@@ -66,7 +66,11 @@ class agFetch{
         foreach ($images as $image) {
             $values[] = $image['size'];
         }
-        return [$variation_title,$values];
+        if (!empty($variation_title)) {
+            return [$variation_title,$values];
+        }else{
+            return false;
+        }
        
     }
 
