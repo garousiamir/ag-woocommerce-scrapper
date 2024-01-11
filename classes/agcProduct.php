@@ -87,14 +87,18 @@ class agcProduct
         $product->set_status('publish');
         $product->set_catalog_visibility('visible');
         $product->set_description($product_desc);
-        $product->set_image_id(agPicupload::ag_download_image_to_media_library($product_images[0]));
         
         $image_ids = [];
         $images_count = count($product_images);
         for ($i = 1; $i < $images_count; $i++) {
             $image_ids[] = agPicupload::ag_download_image_to_media_library($product_images[$i]);
         }
-        
+        $product->set_image_id($image_ids[0]);
+        // Remove the first image from the gallery if it's present
+        if ($images_count > 1) {
+            array_shift($image_ids);
+        }
+        // Set the remaining images as gallery images
         $product->set_gallery_image_ids($image_ids);
         $product->set_category_ids($product_cat);
 
@@ -105,6 +109,8 @@ class agcProduct
             self::create_variations($product, $product_vars, $product_price);
         }
         $product->save();
+
+        return $product->get_id();
     }
 
     public static function ag_create_simple_product($product_title, $product_price, $product_desc, $product_images, $product_attributes, $product_cat)
@@ -128,15 +134,23 @@ class agcProduct
             self::create_attributes($product, $product_attributes);
         }
         $product->set_category_ids($product_cat);
-        $product->set_image_id(agPicupload::ag_download_image_to_media_library($product_images[0]));
 
         $image_ids = [];
         $images_count = count($product_images);
         for ($i = 1; $i < $images_count; $i++) {
             $image_ids[] = agPicupload::ag_download_image_to_media_library($product_images[$i]);
         }
+        $product->set_image_id($image_ids[0]);
+        // Remove the first image from the gallery if it's present
+        if ($images_count > 1) {
+            array_shift($image_ids);
+        }
+        // Set the remaining images as gallery images
+        $product->set_gallery_image_ids($image_ids);
 
         $product->save();
+
+        return $product->get_id();
     }
 }
 ?>
