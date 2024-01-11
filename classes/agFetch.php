@@ -7,6 +7,16 @@ class agFetch{
 
     }
 
+
+    public static function ag_get_json($url){
+
+        // Fetch the HTML content from the URL
+        $html = file_get_html($url);
+        $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
+        return $productScripts;
+       
+    }
+
     public static function ag_get_title_from_url($url){
       // Create a new HTML DOM object
       $html = file_get_html($url);
@@ -14,6 +24,8 @@ class agFetch{
       // Find the title element based on the class 'pr-new-br'
       $titleElement = $html->find('h1.pr-new-br', 0)->innertext;
       $title = strip_tags($titleElement);
+   
+    
       if ($titleElement) {
          return $title;
       } else {
@@ -27,7 +39,7 @@ class agFetch{
   
       // Find the element based on the class 'prc-dsc'
       $priceElement = $html->find('.prc-dsc', 0);
-  
+
       if ($priceElement) {
           $string = $priceElement->innertext;
           $number = (int) preg_replace('/[^0-9]/', '', $string);
@@ -43,7 +55,7 @@ class agFetch{
       $html = file_get_html($url);
       // Find the element based on the class 'info-wrapper'
       $descElement = $html->find('.info-wrapper', 0);
-  
+ 
       if ($descElement) {
           return $descElement->innertext;
       } else {
@@ -66,6 +78,7 @@ class agFetch{
         foreach ($images as $image) {
             $values[] = $image['size'];
         }
+
         if (!empty($variation_title)) {
             return [$variation_title,$values];
         }else{
@@ -83,6 +96,7 @@ class agFetch{
         $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
         $json = json_decode($productScripts ,true);
         $images = $json['image'];
+ 
         return  $images;
         
     }
@@ -113,6 +127,7 @@ class agFetch{
             }
         }
         }
+ 
         if(!empty($firsts)){
             return [$firsts,$seconds];
         }else{
