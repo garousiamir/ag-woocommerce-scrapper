@@ -34,10 +34,12 @@ class agBatch extends WP_Batch {
                 $pr_link = $rep['product_rep_link'];
                 $pr_update = $rep['product_rep_update'];
                 $pr_cargo = $rep['product_rep_cargo'];
+                $pr_catgo = $rep['product_rep_catgo'];
                 $this->push(new WP_Batch_Item($pr_link, array(
 					'pr_link' => $pr_link,
 					'pr_update' => $pr_update,
 					'pr_cargo' => $pr_cargo,
+					'pr_catgo' => $pr_catgo,
 				)));
             endforeach;    
         endif;    
@@ -62,6 +64,7 @@ class agBatch extends WP_Batch {
             'pr_link'  => $item->get_value('pr_link'),
             'pr_update'=> $item->get_value('pr_update'),
             'pr_cargo' => $item->get_value('pr_cargo'),
+            'pr_catgo' => $item->get_value('pr_catgo'),
         );
 
         $url = $datas['pr_link'];
@@ -72,7 +75,11 @@ class agBatch extends WP_Batch {
         $product_attributes = agFetch::ag_attr_from_url($url);
         $product_vars = agFetch::ag_get_vars_from_url($url);
         $product_cat = [];
-        $product_cat[] = '15';
+        if(!empty($datas['pr_catgo'])){
+            $product_cat[] = '15';
+        }else{
+            
+        }
 
         if($product_title && $product_price && $product_images){
             if($product_vars){
@@ -81,6 +88,8 @@ class agBatch extends WP_Batch {
                 agcProduct::create_attributes($product, $product_attributes);
                 agcProduct::create_variations($product, $product_vars, $product_price);
                 update_post_meta($product_id, 'ag_scrap_url', $url);
+                update_post_meta($product_id, 'ag_pr_update', $url);
+                update_post_meta($product_id, 'ag_pr_cargo', $url);
                 // Return true if the item processing is successful.
                 return true;
             }else{
@@ -88,6 +97,8 @@ class agBatch extends WP_Batch {
                 $product = wc_get_product($product_id);
                 agcProduct::create_attributes($product, $product_attributes);
                 update_post_meta($product_id, 'ag_scrap_url', $url);
+                update_post_meta($product_id, 'ag_pr_update', $url);
+                update_post_meta($product_id, 'ag_pr_cargo', $url);
                 // Return true if the item processing is successful.
                 return true;
             }

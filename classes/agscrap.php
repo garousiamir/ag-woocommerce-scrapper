@@ -66,6 +66,18 @@ class agScrap {
                          'dependency' => array( 'product_rep_op_switch', '==', '1' ),
 
                     ),
+                    array(
+                        'id'          => 'product_rep_catgo',
+                        'type'        => 'select',
+                        'multiple'            => true,
+                        'title'       => 'دسته بندی این محصول',
+                        'placeholder' => 'Select a category',
+                        'options'     => 'categories',
+                        'query_args'  => array(
+                          'taxonomy'  => 'product_cat',
+                        ),
+                        'dependency' => array( 'product_rep_op_switch', '==', '1' ),
+                      ),
 
 
 

@@ -43,14 +43,3 @@ function wp_batch_processing_init() {
     WP_Batch_Processor::get_instance()->register( $batch );
 }
 
-
-
-function amir(){
-    $product_id = '14305';
-    $product = wc_get_product($product_id);
-    $url = 'https://www.trendyol.com/egemoda/kadin-houston-baskili-oversize-t-shirt-p-747098552';
-    $product_vars = agFetch::ag_get_vars_from_url($url);
-    $product_price = agFetch::ag_get_price_from_url($url);
-    agcProduct::create_variations($product, $product_vars, $product_price);
-}
-// add_action('init','amir');
