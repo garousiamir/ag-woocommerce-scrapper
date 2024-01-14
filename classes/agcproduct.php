@@ -28,9 +28,15 @@ class agcProduct
         return false;
     }
 
-    private static function create_attributes($product, $product_attributes)
+    public static function create_attributes($product, $product_attributes)
     {
  
+<<<<<<< HEAD:classes/agcProduct.php
+        if ( !is_a( $product, 'WC_Product' ) ) {
+            return;
+        }
+=======
+>>>>>>> 2fed8b7c2302495d638d94aca6259df3813a9f09:classes/agcproduct.php
 
         $attributes = [];
         $numbers = count($product_attributes[0]);
@@ -45,10 +51,18 @@ class agcProduct
             $attributes[] = $attribute;
         }
         $product->set_attributes($attributes);
+        $product->save();
+
     }
 
-    private static function create_variations($product, $product_vars, $product_price)
+    public static function create_variations($product, $product_vars, $product_price)
     {
+<<<<<<< HEAD:classes/agcProduct.php
+        if ( !is_a( $product, 'WC_Product' ) ) {
+            return;
+        }
+=======
+>>>>>>> 2fed8b7c2302495d638d94aca6259df3813a9f09:classes/agcproduct.php
         $attributes = [];
         $attribute = new WC_Product_Attribute();
         $attribute->set_id(wc_attribute_taxonomy_id_by_name($product_vars[0]));
@@ -58,7 +72,6 @@ class agcProduct
         $attribute->set_variation(1);
         $attributes[] = $attribute;
         $product->set_attributes($attributes);
-
         foreach ($product_vars[1] as $product_var) {
             $variation = new WC_Product_Variation();
             $variation->set_parent_id($product->get_id());
@@ -66,6 +79,8 @@ class agcProduct
             $variation->set_regular_price($product_price);
             $variation->save();
         }
+        $product->save();
+
     }
 
     public static function ag_create_variable_product($product_title, $product_price, $product_desc, $product_vars, $product_images, $product_attributes, $product_cat)
@@ -95,15 +110,7 @@ class agcProduct
         // Set the remaining images as gallery images
         $product->set_gallery_image_ids($image_ids);
         $product->set_category_ids($product_cat);
-
-        if ($product_attributes) {
-            self::create_attributes($product, $product_attributes);
-        }
-        if ($product_vars) {
-            self::create_variations($product, $product_vars, $product_price);
-        }
         $product->save();
-
         return $product->get_id();
     }
 
@@ -123,12 +130,6 @@ class agcProduct
         $product->set_description($product_desc);
         $product->set_regular_price($product_price);
 
-
-        if ($product_attributes) {
-            self::create_attributes($product, $product_attributes);
-        }
-        $product->set_category_ids($product_cat);
-
         $image_ids = [];
         $images_count = count($product_images);
         for ($i = 1; $i < $images_count; $i++) {
@@ -139,12 +140,13 @@ class agcProduct
         if ($images_count > 1) {
             array_shift($image_ids);
         }
+
         // Set the remaining images as gallery images
         $product->set_gallery_image_ids($image_ids);
-
+        $product->set_category_ids($product_cat);
         $product->save();
-
         return $product->get_id();
+
     }
 }
 ?>

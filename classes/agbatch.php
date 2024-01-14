@@ -74,19 +74,26 @@ class agBatch extends WP_Batch {
         $product_cat = [];
         $product_cat[] = '15';
 
-        if($product_title != false){
-            if($product_vars != false){
+        if($product_title && $product_price && $product_images){
+            if($product_vars){
                 $product_id = agcProduct::ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat);
-                update_post_meta( $product_id , 'ag_scrap_url' , $url );
+                $product = wc_get_product($product_id);
+                agcProduct::create_attributes($product, $product_attributes);
+                agcProduct::create_variations($product, $product_vars, $product_price);
+                update_post_meta($product_id, 'ag_scrap_url', $url);
+                // Return true if the item processing is successful.
+                return true;
             }else{
                 $product_id = agcProduct::ag_create_simple_product($product_title,$product_price,$product_desc,$product_images,$product_attributes,$product_cat);
-                update_post_meta( $product_id , 'ag_scrap_url' , $url );
+                $product = wc_get_product($product_id);
+                agcProduct::create_attributes($product, $product_attributes);
+                update_post_meta($product_id, 'ag_scrap_url', $url);
+                // Return true if the item processing is successful.
+                return true;
             }
         }
-    
 
-        // Return true if the item processing is successful.
-        return true;
+        return false;
     }
     
     /**

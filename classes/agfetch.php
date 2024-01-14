@@ -8,18 +8,9 @@ class agFetch{
     }
 
 
-    public static function ag_get_json($url){
-
-        // Fetch the HTML content from the URL
-        $html = file_get_html($url);
-        $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
-        return $productScripts;
-       
-    }
-
     public static function ag_get_title_from_url($url){
       // Create a new HTML DOM object
-      $html = file_get_html($url);
+        $html = file_get_html($url);
 
       // Find the title element based on the class 'pr-new-br'
       $titleElement = $html->find('h1.pr-new-br', 0)->innertext;
@@ -31,11 +22,14 @@ class agFetch{
       } else {
          return false;
       }
+      
+      $html->clear();
+      unset($html);
     }
 
     public static function ag_get_price_from_url($url){
       // Create a new HTML DOM object
-      $html = file_get_html($url);
+        $html = file_get_html($url);
   
       // Find the element based on the class 'prc-dsc'
       $priceElement = $html->find('.prc-dsc', 0);
@@ -47,12 +41,15 @@ class agFetch{
       } else {
           return false;
      }
+     
+     $html->clear();
+     unset($html);
        
     }
 
     public static function ag_get_desc_from_url($url){
       // Create a new HTML DOM object
-      $html = file_get_html($url);
+        $html = file_get_html($url);
       // Find the element based on the class 'info-wrapper'
       $descElement = $html->find('.info-wrapper', 0);
  
@@ -61,36 +58,55 @@ class agFetch{
       } else {
           return false;
       }
+      
+      $html->clear();
+      unset($html);
     }
 
     public static function ag_get_vars_from_url($url){
 
         // Fetch the HTML content from the URL
         $html = file_get_html($url);
-        // Create a DOM object
+    
         // Find the variation title
-        $variation_title = $html->find('.size-variant-title--bold', 0)->plaintext;
+        $variation_title = $html->find('.size-variant-title--bold', 0)->innertext;
+    
         // Find script tags with JSON-LD content
-        $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
-        $json = json_decode($productScripts ,true);
-        $images = $json['hasVariant'];
-        $values = [];
-        foreach ($images as $image) {
-            $values[] = $image['size'];
-        }
-
-        if (!empty($variation_title)) {
-            return [$variation_title,$values];
-        }else{
+        $productScripts = $html->find('script[type="application/ld+json"]', 0)->innertext;
+    
+        // Decode JSON with error handling
+        $json = json_decode($productScripts, true);
+    
+        if ($json === null && json_last_error() !== JSON_ERROR_NONE) {
+            // Handle JSON decoding error
+            // Example: echo 'JSON decoding error: ' . json_last_error_msg();
             return false;
         }
-       
+    
+        // Extract values from the decoded JSON
+        $values = [];
+        if (isset($json['hasVariant'])) {
+            foreach ($json['hasVariant'] as $variant) {
+                if (isset($variant['size'])) {
+                    $values[] = $variant['size'];
+                }
+            }
+        }
+    
+        if (!empty($variation_title)) {
+            return [$variation_title, $values];
+        } else {
+            return false;
+        }
+        
+        $html->clear();
+        unset($html);
     }
-
+    
 
     public static function ag_get_gallery_from_url($url){
         // Fetch the HTML content from the URL
-        $html = file_get_html($url);
+          $html = file_get_html($url);
 
         // Find script tags with JSON-LD content
         $productScripts = $html->find('script[type="application/ld+json"]',0)->innertext;
@@ -99,11 +115,13 @@ class agFetch{
  
         return  $images;
         
+        $html->clear();
+        unset($html);
     }
 
     public static function ag_attr_from_url($url){
         // Create a new HTML DOM object
-        $html = file_get_html($url);
+          $html = file_get_html($url);
         // Find the elements based on the class 'starred-attributes' and retrieve the first item
         $container = $html->find('.detail-attr-container', 0);
         if(!empty($container)){
@@ -134,5 +152,6 @@ class agFetch{
             return false;
         }
     }
+    
 
 }
