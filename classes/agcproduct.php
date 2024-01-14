@@ -30,13 +30,9 @@ class agcProduct
 
     public static function create_attributes($product, $product_attributes)
     {
- 
-<<<<<<< HEAD:classes/agcProduct.php
         if ( !is_a( $product, 'WC_Product' ) ) {
             return;
         }
-=======
->>>>>>> 2fed8b7c2302495d638d94aca6259df3813a9f09:classes/agcproduct.php
 
         $attributes = [];
         $numbers = count($product_attributes[0]);
@@ -57,12 +53,10 @@ class agcProduct
 
     public static function create_variations($product, $product_vars, $product_price)
     {
-<<<<<<< HEAD:classes/agcProduct.php
         if ( !is_a( $product, 'WC_Product' ) ) {
             return;
         }
-=======
->>>>>>> 2fed8b7c2302495d638d94aca6259df3813a9f09:classes/agcproduct.php
+        
         $attributes = [];
         $attribute = new WC_Product_Attribute();
         $attribute->set_id(wc_attribute_taxonomy_id_by_name($product_vars[0]));
