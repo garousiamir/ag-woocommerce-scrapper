@@ -27,6 +27,8 @@ class agBatch extends WP_Batch {
      */
     public function setup() {
 
+        $all_options = get_option('ag_frame');
+        $all_catgo = $all_options['scrapper_default_category'];
         $options = get_option( 'ag_scrap' );
         if(!empty($options['product_opt_repeater'])):
             $reps = $options['product_opt_repeater'];
@@ -40,6 +42,7 @@ class agBatch extends WP_Batch {
 					'pr_update' => $pr_update,
 					'pr_cargo' => $pr_cargo,
 					'pr_catgo' => $pr_catgo,
+					'all_catgo' => $all_catgo,
 				)));
             endforeach;    
         endif;    
@@ -65,6 +68,7 @@ class agBatch extends WP_Batch {
             'pr_update'=> $item->get_value('pr_update'),
             'pr_cargo' => $item->get_value('pr_cargo'),
             'pr_catgo' => $item->get_value('pr_catgo'),
+            'all_catgo' => $item->get_value('all_catgo'),
         );
 
         $url = $datas['pr_link'];
@@ -76,9 +80,11 @@ class agBatch extends WP_Batch {
         $product_vars = agFetch::ag_get_vars_from_url($url);
         $product_cat = [];
         if(!empty($datas['pr_catgo'])){
-            $product_cat[] = '15';
+            $product_cat[] = $datas['pr_catgo'];
+        }elseif(!empty($datas['all_catgo'])){
+            $product_cat[] = $datas['all_catgo'];
         }else{
-            
+
         }
 
         if($product_title && $product_price && $product_images){
@@ -88,8 +94,8 @@ class agBatch extends WP_Batch {
                 agcProduct::create_attributes($product, $product_attributes);
                 agcProduct::create_variations($product, $product_vars, $product_price);
                 update_post_meta($product_id, 'ag_scrap_url', $url);
-                update_post_meta($product_id, 'ag_pr_update', $url);
-                update_post_meta($product_id, 'ag_pr_cargo', $url);
+                update_post_meta($product_id, 'ag_pr_update', $datas['pr_update']);
+                update_post_meta($product_id, 'ag_pr_cargo', $datas['pr_cargo']);
                 // Return true if the item processing is successful.
                 return true;
             }else{
@@ -97,8 +103,8 @@ class agBatch extends WP_Batch {
                 $product = wc_get_product($product_id);
                 agcProduct::create_attributes($product, $product_attributes);
                 update_post_meta($product_id, 'ag_scrap_url', $url);
-                update_post_meta($product_id, 'ag_pr_update', $url);
-                update_post_meta($product_id, 'ag_pr_cargo', $url);
+                update_post_meta($product_id, 'ag_pr_update', $datas['pr_update']);
+                update_post_meta($product_id, 'ag_pr_cargo', $datas['pr_cargo']);
                 // Return true if the item processing is successful.
                 return true;
             }

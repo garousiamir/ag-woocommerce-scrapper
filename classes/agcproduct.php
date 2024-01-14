@@ -103,7 +103,9 @@ class agcProduct
         }
         // Set the remaining images as gallery images
         $product->set_gallery_image_ids($image_ids);
-        $product->set_category_ids($product_cat);
+        if(!empty($product_cat)){
+            $product->set_category_ids($product_cat);
+        }
         $product->save();
         return $product->get_id();
     }
@@ -137,7 +139,9 @@ class agcProduct
 
         // Set the remaining images as gallery images
         $product->set_gallery_image_ids($image_ids);
-        $product->set_category_ids($product_cat);
+        if(!empty($product_cat)){
+            $product->set_category_ids($product_cat);
+        }
         $product->save();
         return $product->get_id();
 
