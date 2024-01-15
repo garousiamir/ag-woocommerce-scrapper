@@ -83,6 +83,7 @@ class agcProduct
     
         if ($product_id) {
             $product = wc_get_product($product_id);
+            $otp = 1;
         } else {
             $product = new WC_Product_Variable();
         }
@@ -91,18 +92,21 @@ class agcProduct
         $product->set_catalog_visibility('visible');
         $product->set_description($product_desc);
         
-        $image_ids = [];
-        $images_count = count($product_images);
-        for ($i = 1; $i < $images_count; $i++) {
-            $image_ids[] = agPicupload::ag_download_image_to_media_library($product_images[$i]);
+        if($otp !== 1){
+            $image_ids = [];
+            $images_count = count($product_images);
+            for ($i = 1; $i < $images_count; $i++) {
+                $image_ids[] = agPicupload::ag_download_image_to_media_library($product_images[$i]);
+            }
+            $product->set_image_id($image_ids[0]);
+            // Remove the first image from the gallery if it's present
+            if ($images_count > 1) {
+                array_shift($image_ids);
+            }
+    
+            // Set the remaining images as gallery images
+            $product->set_gallery_image_ids($image_ids);
         }
-        $product->set_image_id($image_ids[0]);
-        // Remove the first image from the gallery if it's present
-        if ($images_count > 1) {
-            array_shift($image_ids);
-        }
-        // Set the remaining images as gallery images
-        $product->set_gallery_image_ids($image_ids);
         if(!empty($product_cat)){
             $product->set_category_ids($product_cat);
         }
@@ -117,6 +121,7 @@ class agcProduct
         
         if ($product_id) {
             $product = wc_get_product($product_id);
+            $otp = 1;
         } else {
             $product = new WC_Product();
         }
@@ -126,19 +131,22 @@ class agcProduct
         $product->set_description($product_desc);
         $product->set_regular_price($product_price);
 
-        $image_ids = [];
-        $images_count = count($product_images);
-        for ($i = 1; $i < $images_count; $i++) {
-            $image_ids[] = agPicupload::ag_download_image_to_media_library($product_images[$i]);
+        if($otp !== 1){
+            $image_ids = [];
+            $images_count = count($product_images);
+            for ($i = 1; $i < $images_count; $i++) {
+                $image_ids[] = agPicupload::ag_download_image_to_media_library($product_images[$i]);
+            }
+            $product->set_image_id($image_ids[0]);
+            // Remove the first image from the gallery if it's present
+            if ($images_count > 1) {
+                array_shift($image_ids);
+            }
+    
+            // Set the remaining images as gallery images
+            $product->set_gallery_image_ids($image_ids);
         }
-        $product->set_image_id($image_ids[0]);
-        // Remove the first image from the gallery if it's present
-        if ($images_count > 1) {
-            array_shift($image_ids);
-        }
-
-        // Set the remaining images as gallery images
-        $product->set_gallery_image_ids($image_ids);
+   
         if(!empty($product_cat)){
             $product->set_category_ids($product_cat);
         }

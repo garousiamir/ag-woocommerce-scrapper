@@ -86,9 +86,9 @@ class agOptions {
         $i = 0;
         foreach ( $product_categories as $category) {
             $catsarray[] = array(
-                'id'    => 'cargo_price_' . $i,
+                'id'    => 'cargo_price_' . $category->term_id,
                 'type'  => 'number',
-                'title' => 'هزینه کارگو و حمل - ' . $category->name,
+                'title' => 'هزینه باربری - ' . $category->name,
             );
             $i++;
         }
@@ -98,17 +98,17 @@ class agOptions {
             array(
                 'type'    => 'notice',
                 'style'   => 'success',
-                'content' => 'تمام نرخ ها به تومان وارد شود',
+                'content' => 'تمام نرخ ها به تومان وارد شود مگر اینکه نوشته به لیر باشد',
             ),
             array(
                 'id'    => 'office_price',
                 'type'  => 'number',
-                'title' => 'هزینه دفتر',
+                'title' => 'هزینه دفتر (به لیر)',
               ),
               array(
                 'id'    => 'cargo_price',
                 'type'  => 'number',
-                'title' => 'هزینه کارگو و حمل',
+                'title' => 'هزینه کارگو و حمل (به لیر)',
               ),
               array(
                 'id'    => 'lira_price',

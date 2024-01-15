@@ -42,4 +42,3 @@ function wp_batch_processing_init() {
     $batch = new agBatch();
     WP_Batch_Processor::get_instance()->register( $batch );
 }
-

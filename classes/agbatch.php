@@ -27,8 +27,7 @@ class agBatch extends WP_Batch {
      */
     public function setup() {
 
-        $all_options = get_option('ag_frame');
-        $all_catgo = $all_options['scrapper_default_category'];
+        
         $options = get_option( 'ag_scrap' );
         if(!empty($options['product_opt_repeater'])):
             $reps = $options['product_opt_repeater'];
@@ -42,7 +41,6 @@ class agBatch extends WP_Batch {
 					'pr_update' => $pr_update,
 					'pr_cargo' => $pr_cargo,
 					'pr_catgo' => $pr_catgo,
-					'all_catgo' => $all_catgo,
 				)));
             endforeach;    
         endif;    
@@ -68,8 +66,15 @@ class agBatch extends WP_Batch {
             'pr_update'=> $item->get_value('pr_update'),
             'pr_cargo' => $item->get_value('pr_cargo'),
             'pr_catgo' => $item->get_value('pr_catgo'),
-            'all_catgo' => $item->get_value('all_catgo'),
         );
+
+        $all_options = get_option('ag_frame');
+        $all_catgo = $all_options['scrapper_default_category'];
+        $C1 = $all_options['office_price'];
+        $C2 = $all_options['cargo_price'];
+        $TL = $all_options['lira_price'];
+        $W = $all_options['comission_price'];
+        $K = $all_options['times_factor'];
 
         $url = $datas['pr_link'];
         $product_title = agFetch::ag_get_title_from_url($url);
@@ -81,8 +86,8 @@ class agBatch extends WP_Batch {
         $product_cat = [];
         if(!empty($datas['pr_catgo'])){
             $product_cat[] = $datas['pr_catgo'];
-        }elseif(!empty($datas['all_catgo'])){
-            $product_cat[] = $datas['all_catgo'];
+        }elseif(!empty($all_catgo)){
+            $product_cat[] = $all_catgo;
         }else{
 
         }
