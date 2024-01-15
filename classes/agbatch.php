@@ -83,10 +83,9 @@ class agBatch extends WP_Batch {
         $product_images= agFetch::ag_get_gallery_from_url($url);
         $product_attributes = agFetch::ag_attr_from_url($url);
         $product_vars = agFetch::ag_get_vars_from_url($url);
-        $product_cat = [];
         
         if(!empty($datas['pr_catgo'])){
-            $product_cat[] = $datas['pr_catgo'];
+            $product_cat = $datas['pr_catgo'];
             if(intval($datas['pr_cargo']) > 0){
                 $F= $datas['pr_cargo'];
             }else{
@@ -94,7 +93,7 @@ class agBatch extends WP_Batch {
                 $F= $all_options[$cargoname];
             }
         }elseif(!empty($all_catgo)){
-            $product_cat[] = $all_catgo;
+            $product_cat = $all_catgo;
             if(intval($datas['pr_cargo']) > 0){
                 $F= $datas['pr_cargo'];
             }else{
@@ -105,10 +104,15 @@ class agBatch extends WP_Batch {
 
         }
 
+        
     
 
         if($product_title && $product_price && $product_images){
             if($product_vars){
+                $P = $product_price;
+                $P1 = ($P + $C1 + $C2) * ($TL + $W) + $F;
+                $P1 = $P1 + ($P1 * $K); 
+                $product_price = round($P1);
                 $product_id = agcProduct::ag_create_variable_product($product_title,$product_price,$product_desc,$product_vars,$product_images,$product_attributes,$product_cat);
                 $product = wc_get_product($product_id);
                 agcProduct::create_attributes($product, $product_attributes);
@@ -119,6 +123,10 @@ class agBatch extends WP_Batch {
                 // Return true if the item processing is successful.
                 return true;
             }else{
+                $P = $product_price;
+                $P1 = ($P + $C1 + $C2) * ($TL + $W) + $F;
+                $P1 = $P1 + ($P1 * $K); 
+                $product_price = round($P1);
                 $product_id = agcProduct::ag_create_simple_product($product_title,$product_price,$product_desc,$product_images,$product_attributes,$product_cat);
                 $product = wc_get_product($product_id);
                 agcProduct::create_attributes($product, $product_attributes);
