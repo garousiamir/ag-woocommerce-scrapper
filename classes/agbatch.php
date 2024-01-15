@@ -84,13 +84,28 @@ class agBatch extends WP_Batch {
         $product_attributes = agFetch::ag_attr_from_url($url);
         $product_vars = agFetch::ag_get_vars_from_url($url);
         $product_cat = [];
+        
         if(!empty($datas['pr_catgo'])){
             $product_cat[] = $datas['pr_catgo'];
+            if(intval($datas['pr_cargo']) > 0){
+                $F= $datas['pr_cargo'];
+            }else{
+                $cargoname = 'cargo_price_' . $datas['pr_catgo'][0]; 
+                $F= $all_options[$cargoname];
+            }
         }elseif(!empty($all_catgo)){
             $product_cat[] = $all_catgo;
+            if(intval($datas['pr_cargo']) > 0){
+                $F= $datas['pr_cargo'];
+            }else{
+                $cargoname = 'cargo_price_' . $all_catgo[0]; 
+                $F= $all_options[$cargoname];
+            }
         }else{
 
         }
+
+    
 
         if($product_title && $product_price && $product_images){
             if($product_vars){
